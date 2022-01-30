@@ -19,12 +19,9 @@ cmake \
   -DCMAKE_INSTALL_PREFIX=${prefix} \
   -DCMAKE_TOOLCHAIN_FILE=${CMAKE_TARGET_TOOLCHAIN} \
   -DCMAKE_BUILD_TYPE="Release" \
-  -DBLAS_LIBRARIES="-lblastrampoline" \
   -Drun_result="0" \
   -Drun_result__TRYRUN_OUTPUT="ok" \
   -Dgpu_backend=none \
-  -Duse_cmake_find_blas=true \
-  -DCMAKE_CXX_FLAGS="-I${includedir}/LP64/${target}" \
   -Dbuild_tests=no \
   ..
 make -j${nproc}
@@ -39,7 +36,7 @@ products = [
 
 dependencies = [
     Dependency("CompilerSupportLibraries_jll"),
-    Dependency("libblastrampoline_jll"),
+    Dependency("OpenBLAS32_jll"),
 ]
 
 # Build the tarballs.
