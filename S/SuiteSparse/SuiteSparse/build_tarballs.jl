@@ -1,6 +1,6 @@
 include("../common.jl")
 
-name = "SuiteSparse"
+name = "asan_SS"
 
 sources = [
     sources;
@@ -19,10 +19,12 @@ FLAGS+=(INSTALL="${prefix}" INSTALL_LIB="${libdir}" INSTALL_INCLUDE="${prefix}/i
 
 if [[ ${target} == *mingw32* ]]; then
     FLAGS+=(UNAME=Windows)
-    FLAGS+=(LDFLAGS="${LDFLAGS} -L${libdir} -shared")
+    FLAGS+=(LDFLAGS="${LDFLAGS} -L${libdir} -shared -fsanitize=address")
+    FLAGS+=(CFLAGS="${CFLAGS} -fsanitize=address -fno-omit-frame-pointer")
 else
     FLAGS+=(UNAME="$(uname)")
-    FLAGS+=(LDFLAGS="${LDFLAGS} -L${libdir}")
+    FLAGS+=(LDFLAGS="${LDFLAGS} -L${libdir} -fsanitize=address")
+    FLAGS+=(CFLAGS="${CFLAGS} -fsanitize=address -fno-omit-frame-pointer")
 fi
 
 BLAS_NAME=blastrampoline
@@ -35,6 +37,10 @@ FLAGS+=(BLAS="-l${BLAS_NAME}" LAPACK="-l${BLAS_NAME}")
 # Disable METIS in CHOLMOD by passing -DNPARTITION and avoiding linking metis
 #FLAGS+=(MY_METIS_LIB="-lmetis" MY_METIS_INC="${prefix}/include")
 FLAGS+=(UMFPACK_CONFIG="$SUN" CHOLMOD_CONFIG+="$SUN -DNPARTITION" SPQR_CONFIG="$SUN")
+
+export AUTOCC=no
+export CC=clang
+export CXX=clang++
 
 make -j${nproc} -C SuiteSparse_config "${FLAGS[@]}" library config
 
@@ -69,4 +75,4 @@ fi
 install_license LICENSE.txt
 """
 
-build_tarballs(ARGS, name, version, sources, script, platforms, products, dependencies; julia_compat="1.7")
+build_tarballs(ARGS, name, version, sources, script, platforms, products, dependencies; julia_compat="1.7", preferred_llvm_version=v"13", preferred_gcc_version=v"9")

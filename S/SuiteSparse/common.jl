@@ -13,18 +13,18 @@ platforms = supported_platforms(;experimental=true)
 
 # The products that we will ensure are always built
 products = [
-    LibraryProduct("libsuitesparseconfig",   :libsuitesparseconfig),
-    LibraryProduct("libamd",                 :libamd),
-    LibraryProduct("libbtf",                 :libbtf),
-    LibraryProduct("libcamd",                :libcamd),
-    LibraryProduct("libccolamd",             :libccolamd),
-    LibraryProduct("libcolamd",              :libcolamd),
-    LibraryProduct("libcholmod",             :libcholmod),
-    LibraryProduct("libldl",                 :libldl),
-    LibraryProduct("libklu",                 :libklu),
-    LibraryProduct("libumfpack",             :libumfpack),
-    LibraryProduct("librbio",                :librbio),
-    LibraryProduct("libspqr",                :libspqr),
+    LibraryProduct("libsuitesparseconfig",   :libsuitesparseconfig; dont_dlopen=true),
+    LibraryProduct("libamd",                 :libamd; dont_dlopen=true),
+    LibraryProduct("libbtf",                 :libbtf; dont_dlopen=true),
+    LibraryProduct("libcamd",                :libcamd; dont_dlopen=true),
+    LibraryProduct("libccolamd",             :libccolamd; dont_dlopen=true),
+    LibraryProduct("libcolamd",              :libcolamd; dont_dlopen=true),
+    LibraryProduct("libcholmod",             :libcholmod; dont_dlopen=true),
+    LibraryProduct("libldl",                 :libldl; dont_dlopen=true),
+    LibraryProduct("libklu",                 :libklu; dont_dlopen=true),
+    LibraryProduct("libumfpack",             :libumfpack; dont_dlopen=true),
+    LibraryProduct("librbio",                :librbio; dont_dlopen=true),
+    LibraryProduct("libspqr",                :libspqr; dont_dlopen=true),
 ]
 
 # Dependencies that must be installed before this package can be built

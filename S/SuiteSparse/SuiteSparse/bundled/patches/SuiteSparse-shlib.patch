@@ -35,7 +35,7 @@
          SO_TARGET = $(LIBRARY).so.$(VERSION)
 -        SO_OPTS  += -shared -Wl,-soname -Wl,$(SO_MAIN) -Wl,--no-undefined
 -        # Linux/Unix *.so files can be moved without modification:
-+        SO_OPTS  += -shared -Wl,-soname -Wl,$(SO_MAIN) -Wl,--no-undefined \
++        SO_OPTS  += -shared -Wl,-soname -Wl,$(SO_MAIN) \
 +                     -Wl,-rpath,'$$ORIGIN' -Wl,-z,origin
 +        # Use rpath ORIGIN so that Linux/Unix *.so files can be moved without modification:
          SO_INSTALL_NAME = echo
